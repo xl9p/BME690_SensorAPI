@@ -960,11 +960,11 @@ static uint8_t calc_res_heat(uint16_t temp, const struct bme69x_dev *dev)
 /* @brief This internal API is used to calculate the temperature value. */
 static float calc_temperature(uint32_t temp_adc, const struct bme69x_dev *dev)
 {
-    uint32_t do1, cf;
+    int32_t do1, cf;
     double dtk1, dtk2, temp1, temp2;
     double calc_temp;
 
-    do1 = (uint32_t)dev->calib.par_t1 << 8;
+    do1 = (int32_t)dev->calib.par_t1 << 8;
     dtk1 = (double)dev->calib.par_t2 / (double)(1ULL << 30);
     dtk2 = (double)dev->calib.par_t3 / (double)(1ULL << 48);
 
