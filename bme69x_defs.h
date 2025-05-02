@@ -698,6 +698,9 @@ typedef BME69X_INTF_RET_TYPE (*bme69x_write_fptr_t)(uint8_t reg_addr, const uint
  */
 typedef void (*bme69x_delay_us_fptr_t)(uint32_t period, void *intf_ptr);
 
+typedef uint64_t (*timestamp_func_t)(void);
+extern timestamp_func_t bme68x_get_timestamp;
+
 /*
  * @brief Generic communication function pointer
  * @param[in] dev_id: Place holder to store the id of the device structure
@@ -772,9 +775,11 @@ struct bme69x_data
 
     /*! Gas resistance in Ohms */
     float gas_resistance;
-
 #endif
-
+    /*! A timestamp of a measurement, use
+     * bme68x_set_timestamp_function(timestamp_function) to set the function
+     * used to retrieve timestamps */
+    uint64_t meas_timestamp;
 };
 
 struct bme69x_calib_data

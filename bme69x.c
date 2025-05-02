@@ -115,6 +115,12 @@ static void swap_fields(uint8_t index1, uint8_t index2, struct bme69x_data *fiel
 /* This internal API is used sort the sensor data */
 static void sort_sensor_data(uint8_t low_index, uint8_t high_index, struct bme69x_data *field[]);
 
+// Allow user to provide a timestamp function
+timestamp_func_t bme69x_get_timestamp = NULL;
+void bme69x_set_timestamp_function(timestamp_func_t func) {
+  bme69x_get_timestamp = func;
+}
+
 /*
  * @brief       Function to analyze the sensor data
  *
@@ -573,6 +579,7 @@ int8_t bme69x_get_data(uint8_t op_mode, struct bme69x_data *data, uint8_t *n_dat
                 if (field_ptr[i]->status & BME69X_NEW_DATA_MSK)
                 {
                     new_fields++;
+                    field_ptr[i]->meas_timestamp = bme69x_get_timestamp();
                 }
             }
 

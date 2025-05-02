@@ -46,6 +46,8 @@
 extern "C" {
 #endif
 
+void bme69x_set_timestamp_function(timestamp_func_t func);
+
 /**
  * \ingroup bme69x
  * \defgroup bme69xApiInit Initialization
