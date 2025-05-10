@@ -560,6 +560,7 @@ int8_t bme69x_get_data(uint8_t op_mode, struct bme69x_data *data, uint8_t *n_dat
                 if (data->status & BME69X_NEW_DATA_MSK)
                 {
                     new_fields = 1;
+                    data->meas_timestamp = bme69x_get_timestamp();
                 }
                 else
                 {
